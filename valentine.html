@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow-x: hidden;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    padding: 30px 20px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 200px;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: white;
+    color: #ff4e75;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#mainContent, #countdownScreen {
+    display: none;
+}
+
+#countNumber {
+    font-size: 60px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.gallery {
+    max-width: 320px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 20px;
+    display: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.gallery img.active {
+    display: block;
+}
+
+#caption {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    min-height: 40px;
+}
+
+.heart {
+    position: fixed;
+    color: rgba(255,255,255,0.6);
+    animation: float 6s linear infinite;
+    z-index: 10;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+
+<script>
+let count = 5;
+let currentSlide = 0;
+let slideInterval;
+
+const captions = [
+"You are my favorite memory ❤️",
+"Every picture with you feels special 🥹",
+"You make my world brighter ✨",
+"My safe place is right next to you 🤍",
+"I love the way you smile at me 💕",
+"With you, everything feels right 😌",
+"You are my happiness 🌸",
+"Forever starts with you 💍",
+"My heart chose you ❤️",
+"It’s always you… only you 💖",
+"Every moment with you is magic ✨",
+"You are my dream come true 🥰",
+"My favorite person in the universe 🌎",
+"I can’t imagine life without you ❤️",
+"You make my heart skip a beat 💓",
+"Your love is my superpower 💪",
+"Being with you feels like home 🏡",
+"My heart is yours forever 💖",
+"You complete me in every way 🥹",
+"Love you more every day 💕"
+];
+
+function startCountdown() {
+    var date = document.getElementById("dateInput").value;
+    if(date === "") return;
+
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("countdownScreen").style.display = "block";
+    document.getElementById("hisDate").innerText = date;
+
+    let interval = setInterval(function() {
+        document.getElementById("countNumber").innerText = count;
+        count--;
+        if(count < 0) {
+            clearInterval(interval);
+            document.getElementById("countdownScreen").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            document.getElementById("music").play();
+            startSlideshow();
+        }
+    }, 1000);
+}
+
+function startSlideshow() {
+    showSlide(currentSlide);
+    slideInterval = setInterval(() => {
+        nextSlide();
+    }, 3000);
+}
+
+function showSlide(index) {
+    let slides = document.querySelectorAll(".gallery img");
+    slides.forEach(slide => slide.classList.remove("active"));
+    slides[index].classList.add("active");
+    document.getElementById("caption").innerText = captions[index];
+}
+
+function nextSlide() {
+    let slides = document.querySelectorAll(".gallery img");
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function createHearts() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 6000);
+}
+
+setInterval(createHearts, 500);
+</script>
+
+</head>
+
+<body>
+
+<div id="welcome" class="container">
+    <h2>Hey you… 💌</h2>
+    <p>Type the date of the first day he said "I love you" 😌</p>
+    <input type="date" id="dateInput">
+    <br>
+    <button onclick="startCountdown()">Open it ❤️</button>
+</div>
+
+<div id="countdownScreen" class="container">
+    <h2>Remember this day: <span id="hisDate"></span> 🥹</h2>
+    <p>Your surprise is loading...</p>
+    <div id="countNumber">5</div>
+</div>
+
+<div id="mainContent" class="container">
+    <h1>This is just for you 🤍</h1>
+
+    <div class="gallery">
+        <img src="photo1.jpg" class="active">
+        <img src="photo2.jpg">
+        <img src="photo3.jpg">
+        <img src="photo4.jpg">
+        <img src="photo5.jpg">
+        <img src="photo6.jpg">
+        <img src="photo7.jpg">
+        <img src="photo8.jpg">
+        <img src="photo9.jpg">
+        <img src="photo10.jpg">
+        <img src="photo11.jpg">
+        <img src="photo12.jpg">
+        <img src="photo13.jpg">
+        <img src="photo14.jpg">
+        <img src="photo15.jpg">
+        <img src="photo16.jpg">
+        <img src="photo17.jpg">
+        <img src="photo18.jpg">
+        <img src="photo19.jpg">
+        <img src="photo20.jpg">
+    </div>
+
+    <div id="caption"></div>
+</div>
+
+<audio id="music" loop>
+    <source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>
